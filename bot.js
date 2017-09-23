@@ -1,19 +1,21 @@
 /*global $*/
 
 
-const botKey = require('/secrets.js')
 const discord = require('discord.js');
+const secret = require('./secrets.js');
 var client = new discord.Client();
-client.login()
+client.login(secret.secret);
 let actionMusic = [];
 let lastPlayed = [];
 // let clients = client.users;
 // console.log(clients);
-console.log(botKey)
+console.log(secret.secret);
 
 client.on('message', function(message){
     let mess = message.content;
-    let messArr = message.content.toLowerCase().split(' ')
+    let messArr = message.content.toLowerCase().split(' ');
+    if (message.author.bot) return;
+    console.log(messArr);
     if (messArr.includes('zoe')){
         message.channel.send('ZOE MAX NOT OP, UNNERF PLZ');
     }
@@ -25,10 +27,12 @@ client.on('message', function(message){
             .catch(console.error); // Log error
     if (mess.slice(0, 5) === 'game:'){
     message.channel.send(`Game of the minute is ${mess.slice(mess[5] === ' ' ? 6:5, mess.length)}`)
-    client.user.setGame(mess.slice(mess[5] === ' ' ? 6:5, mess.length))
-
-    
-    }if (mess === 'assholes'){
+    client.user.setGame(mess.slice(mess[5] === ' ' ? 6:5, mess.length))}
+    if (messArr.includes('geno')){
+        console.log('should play this shit');
+        message.reply('GENO IS THE BEST');
+    }
+    if (mess === 'assholes'){
         var test;
         var request = require('superagent');
         function createElements(elements) {
